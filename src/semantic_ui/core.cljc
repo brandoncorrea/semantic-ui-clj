@@ -2,19 +2,19 @@
   (:require [semantic-ui.options :as options]
             [semantic-ui.tag :as tag]))
 
-(defn button [& args]
-  (let [[options children] (options/parse-args args)
-        component [(tag/tag-name :button options) (options/button options)]]
+(defn- parse-args [[first-arg & children :as args]]
+  (if (map? first-arg)
+    [first-arg children]
+    [{} args]))
+
+(defn- build-component [kind & args]
+  (let [[options children] (parse-args args)
+        component [(tag/tag-name kind options)
+                   (options/options kind options)]]
     (if-not (empty? children)
       (concat component children)
       component)))
 
-(defn container [& args]
-  (let [[options children] (options/parse-args args)
-        component [(tag/tag-name :container options) (options/container options)]]
-    (if-not (empty? children)
-      (concat component children)
-      component)))
-
-(defn flag [options]
-  [(tag/tag-name :flag options) (options/flag options)])
+(def button (partial build-component :button))
+(def container (partial build-component :container))
+(def flag (partial build-component :flag))
