@@ -16,3 +16,6 @@
 
 (defn container [options]
   {:class (class-name/container options)})
+
+(defn flag [options]
+  {:class (class-name/flag options)})

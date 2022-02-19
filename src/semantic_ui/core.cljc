@@ -1,6 +1,5 @@
 (ns semantic-ui.core
-  (:require [semantic-ui.class-name :as class-name]
-            [semantic-ui.options :as options]
+  (:require [semantic-ui.options :as options]
             [semantic-ui.tag :as tag]))
 
 (defn button [& args]
@@ -18,4 +17,4 @@
       component)))
 
 (defn flag [options]
-  [(tag/tag-name :flag options) {:class (class-name/flag options)}])
+  [(tag/tag-name :flag options) (options/flag options)])
