@@ -5,17 +5,17 @@
 
 (defn button [& args]
   (let [[options children] (options/parse-args args)
-        component [(tag/as-button options) (options/button options)]]
+        component [(tag/tag-name :button options) (options/button options)]]
     (if-not (empty? children)
       (concat component children)
       component)))
 
 (defn container [& args]
   (let [[options children] (options/parse-args args)
-        component [(tag/as-div options) (options/container options)]]
+        component [(tag/tag-name :container options) (options/container options)]]
     (if-not (empty? children)
       (concat component children)
       component)))
 
 (defn flag [options]
-  [(tag/as-i options) {:class (class-name/flag options)}])
+  [(tag/tag-name :flag options) {:class (class-name/flag options)}])
