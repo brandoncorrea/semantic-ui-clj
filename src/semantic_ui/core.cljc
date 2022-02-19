@@ -1,6 +1,5 @@
 (ns semantic-ui.core
-  (:require [clojure.string :as s]
-            [semantic-ui.class-name :as class-name]
+  (:require [semantic-ui.class-name :as class-name]
             [semantic-ui.options :as options]
             [semantic-ui.tag :as tag]))
 
@@ -13,7 +12,7 @@
 
 (defn container [& args]
   (let [[options children] (options/parse-args args)
-        component [(tag/as-div options) {:class (class-name/container options)}]]
+        component [(tag/as-div options) (options/container options)]]
     (if-not (empty? children)
       (concat component children)
       component)))

@@ -13,3 +13,6 @@
     (when role {:role role})
     (when on-click {:on-click on-click})
     {:class (class-name/button options)}))
+
+(defn container [options]
+  {:class (class-name/container options)})
