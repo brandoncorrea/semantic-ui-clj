@@ -23,9 +23,7 @@
         (should= text " \r\t\n")))
     (it "has one child and empty options"
       (should= [:button {:class "ui button"} [:p "Child"]]
-               (button {} [:p "Child"])))
-
-    )
+               (button {} [:p "Child"]))))
 
   (context "options"
     (it "includes active class when active is truthy"
@@ -34,6 +32,8 @@
       (button-class-should= "ui button" {:active false}))
     (it "includes default animated class"
       (button-class-should= "ui animated button" {:animated true}))
+    (it "includes default animated class"
+      (button-class-should= "ui button" {:animated false}))
     (it "includes vertical animated class"
       (button-class-should= "ui vertical animated button" {:animated :vertical}))
     (it "includes fade animated class"
@@ -56,6 +56,10 @@
       (button-class-should= "ui right attached button" {:attached :right}))
     (it "creates a 'basic' button"
       (button-class-should= "ui basic button" {:basic true}))
+    (it "has label position: right"
+      (button-class-should= "ui right labeled button" {:label-position :right}))
+    (it "has label position: left"
+      (button-class-should= "ui left labeled button" {:label-position :left}))
     (it "can be circular"
       (button-class-should= "ui circular button" {:circular true}))
     (it "class-name options are appended with class-name"

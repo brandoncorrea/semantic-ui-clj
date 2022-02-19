@@ -5,26 +5,35 @@
 
 (defn- ->class [& names] (s/join " " (remove s/blank? (map #(s/trim (str %)) names))))
 
-(defn button [{:keys [active animated attached basic circular class-name compact color disabled floated fluid inverted loading negative positive primary secondary size toggle]}]
+(defn button
+  [{:keys [active animated attached
+           basic circular class-name
+           compact color disabled floated
+           fluid inverted label-position
+           loading negative positive
+           primary secondary size toggle]}]
   (->class
     "ui"
     (case animated
-      :fade "fade"
-      :vertical "vertical"
+      :fade "fade animated"
+      :vertical "vertical animated"
+      nil ""
+      false ""
+      "animated")
+    (case label-position
+      :right "right labeled"
+      :left "left labeled"
       "")
-    (when animated "animated")
     (case attached
-      :top "top"
-      :left "left"
-      :bottom "bottom"
-      :right "right"
+      :top "top attached"
+      :left "left attached"
+      :bottom "bottom attached"
+      :right "right attached"
       "")
-    (when attached "attached")
     (case floated
-      :left "left"
-      :right "right"
+      :left "left floated"
+      :right "right floated"
       "")
-    (when floated "floated")
     (when active "active")
     (when basic "basic")
     (when circular "circular")
