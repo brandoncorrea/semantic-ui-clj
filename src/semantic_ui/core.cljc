@@ -15,10 +15,12 @@
     (let [text (or content text)]
       (when-not (s/blank? text) text))]))
 
-(defn container
-  ([] (container {}))
-  ([options]
-   [(tag/as-div options) {:class (class-name/container options)}]))
+(defn container [& args]
+  (let [[options children] (options/parse-args args)
+        component [(tag/as-div options) {:class (class-name/container options)}]]
+    (if-not (empty? children)
+      (concat component children)
+      component)))
 
 (defn flag [options]
   [(tag/as-i options) {:class (class-name/flag options)}])

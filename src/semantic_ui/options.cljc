@@ -1,6 +1,11 @@
 (ns semantic-ui.options
   (:require [semantic-ui.class-name :as class-name]))
 
+(defn parse-args [[first-arg & children :as args]]
+  (if (map? first-arg)
+    [first-arg children]
+    [{} args]))
+
 (defn button [{:keys [on-click role toggle active type] :as options}]
   (merge
     (when toggle {:aria-pressed (or active false)})
