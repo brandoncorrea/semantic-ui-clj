@@ -3,8 +3,10 @@
             [semantic-ui.core :refer :all]
             [clojure.string :as s]))
 
+;; TODO: Implement Icon & Label options
+
 (defn button-class-should= [expected options]
-  (should= {:class expected} (-> options button second)))
+  (should= expected (-> options button second :class)))
 
 (describe "button"
   (context "default structure"
@@ -56,10 +58,6 @@
       (button-class-should= "ui right attached button" {:attached :right}))
     (it "creates a 'basic' button"
       (button-class-should= "ui basic button" {:basic true}))
-    (it "has label position: right"
-      (button-class-should= "ui right labeled button" {:label-position :right}))
-    (it "has label position: left"
-      (button-class-should= "ui left labeled button" {:label-position :left}))
     (it "can be circular"
       (button-class-should= "ui circular button" {:circular true}))
     (it "class-name options are appended with class-name"
@@ -89,6 +87,20 @@
       (button-class-should= "ui red inverted button" {:inverted true :color :red}))
     (it "displays a loading indicator"
       (button-class-should= "ui loading button" {:loading true}))
+    (it "has label position: right"
+      (button-class-should= "ui right labeled button" {:label-position :right}))
+    (it "adds :tab-index 0 when given a label-position value"
+      (let [[_ {:keys [tab-index]} _] (button {:label-position ""})]
+        (should= 0 tab-index)))
+    (for [index [-1 0 1]]
+      (it (str "adds :tab-index " index " to element options")
+        (let [[_ {:keys [tab-index]} _] (button {:tab-index index})]
+          (should= index tab-index))))
+    (it "tab-index property overrides :label-position tab-index of zero"
+      (let [[_ {:keys [tab-index]} _] (button {:tab-index 3 :label-position :right})]
+        (should= 3 tab-index)))
+    (it "has label position: left"
+      (button-class-should= "ui left labeled button" {:label-position :left}))
     (it "hints toward a negative consequence"
       (button-class-should= "ui negative button" {:negative true}))
     (it "applies an on-click function"
