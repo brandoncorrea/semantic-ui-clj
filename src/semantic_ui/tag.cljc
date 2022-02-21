@@ -14,3 +14,6 @@
   (as-div options))
 (defmethod tag-name :flag [_ options]
   (as-i options))
+(defmethod tag-name :divider [_ options]
+  (as-div options))
+(defmethod tag-name :default [_ _] :<>)

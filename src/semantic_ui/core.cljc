@@ -11,10 +11,9 @@
   (let [[options children] (parse-args args)
         component [(tag/tag-name kind options)
                    (options/options kind options)]]
-    (if-not (empty? children)
-      (concat component children)
-      component)))
+      (into component children)))
 
 (def button (partial build-component :button))
 (def container (partial build-component :container))
 (def flag (partial build-component :flag))
+(def divider (partial build-component :divider))

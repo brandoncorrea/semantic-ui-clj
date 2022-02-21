@@ -5,8 +5,10 @@
 
 (defn- ->class [& names] (s/join " " (remove s/blank? (map #(s/trim (str %)) names))))
 
-(defn button
-  [{:keys [active animated attached
+(defmulti class-name (fn [kind & _] kind))
+
+(defmethod class-name :button
+  [_ {:keys [active animated attached
            basic circular class-name
            compact color disabled floated
            fluid inverted label-position
@@ -52,7 +54,7 @@
     "button"
     class-name))
 
-(defn container [{:keys [fluid text text-align class-name]}]
+(defmethod class-name :container [_ {:keys [fluid text text-align class-name]}]
   (->class
     "ui"
     (when fluid "fluid")
@@ -66,6 +68,18 @@
     "container"
     class-name))
 
-(defn flag [{:keys [name class-name]}]
+(defmethod class-name :flag [_ {:keys [name class-name]}]
   (->class name "flag" class-name))
 
+(defmethod class-name :divider [_ {:keys [class-name clearing fitted hidden horizontal inverted section vertical]}]
+  (->class
+    "ui"
+    (when clearing "clearing")
+    (when fitted "fitted")
+    (when hidden "hidden")
+    (when horizontal "horizontal")
+    (when inverted "inverted")
+    (when section "section")
+    (when vertical "vertical")
+    "divider"
+    class-name))
