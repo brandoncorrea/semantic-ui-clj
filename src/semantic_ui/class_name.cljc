@@ -66,6 +66,6 @@
     "container"
     class-name))
 
-(defn flag [{:keys [name class-list]}]
-  (->class name "flag" class-list))
+(defn flag [{:keys [name class-name]}]
+  (->class name "flag" class-name))
 

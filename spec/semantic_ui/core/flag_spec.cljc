@@ -13,5 +13,5 @@
     (should= "france flag" (:class (second (flag {:name "france"}))))
     (should= "us flag" (:class (second (flag {:name "us"})))))
   (it "appends class list with additional classes"
-    (let [[_ options] (flag {:name "ad" :class-list "  something-else  "})]
+    (let [[_ options] (flag {:name "ad" :class-name "  something-else  "})]
       (should= "ad flag something-else" (:class options)))))
