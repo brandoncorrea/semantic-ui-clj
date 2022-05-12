@@ -11,6 +11,10 @@
     (when label-position {:tab-index 0})
     (when tab-index {:tab-index tab-index})
     {:class (class-name/class-name kind options)}))
+(defmethod options :button-or [kind {:keys [text] :as options}]
+  (merge
+    {:class (class-name/class-name kind options)}
+    (when text {:data-text text})))
 (defmethod options :container [kind options]
   {:class (class-name/class-name kind options)})
 (defmethod options :flag [kind options]

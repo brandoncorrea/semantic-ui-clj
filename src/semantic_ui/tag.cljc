@@ -8,12 +8,9 @@
 
 (defmulti tag-name (fn [kind & _] kind))
 
-(defmethod tag-name :button [_ options]
-  (as-button options))
-(defmethod tag-name :container [_ options]
-  (as-div options))
-(defmethod tag-name :flag [_ options]
-  (as-i options))
-(defmethod tag-name :divider [_ options]
-  (as-div options))
+(defmethod tag-name :button [_ options] (as-button options))
+(defmethod tag-name :button-or [_ options] (as-div options))
+(defmethod tag-name :container [_ options] (as-div options))
+(defmethod tag-name :flag [_ options] (as-i options))
+(defmethod tag-name :divider [_ options] (as-div options))
 (defmethod tag-name :default [_ _] :<>)

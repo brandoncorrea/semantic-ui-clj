@@ -14,6 +14,7 @@
       (into component children)))
 
 (def button (partial build-component :button))
+(def button-or (partial build-component :button-or))
 (def container (partial build-component :container))
 (def flag (partial build-component :flag))
 (def divider (partial build-component :divider))

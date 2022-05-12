@@ -55,6 +55,9 @@
     "button"
     class-name))
 
+(defmethod class-name :button-or [_ {:keys [class-name]}]
+  (->class "or" class-name))
+
 (defmethod class-name :container [_ {:keys [fluid text text-align class-name]}]
   (->class
     "ui"
