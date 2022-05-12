@@ -11,7 +11,7 @@
   [_ {:keys [active animated attached
            basic circular class-name
            compact color disabled floated
-           fluid inverted label-position
+           fluid icon inverted label-position
            loading negative positive
            primary secondary size toggle]}]
   (->class
@@ -42,6 +42,7 @@
     (when compact "compact")
     (when disabled "disabled")
     (when fluid "fluid")
+    (when icon "icon")
     (when loading "loading")
     (when negative "negative")
     (when positive "positive")

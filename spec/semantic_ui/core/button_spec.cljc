@@ -3,8 +3,6 @@
             [semantic-ui.core :refer :all]
             [clojure.string :as s]))
 
-;; TODO: Implement Icon & Label options
-
 (defn button-class-should= [expected options]
   (should= expected (-> options button second :class)))
 
@@ -69,7 +67,7 @@
                  :facebook :google-plus :instagram :linkedin
                  :twitter :vk :youtube]]
       (it (str "applies color: " color)
-        (let [expected-color (s/replace (subs (str color) 1) #"-" " ")]
+        (let [expected-color (s/replace (name color) #"-" " ")]
           (button-class-should= (str "ui " expected-color " button") {:color color}))))
     (it "can be compact"
       (button-class-should= "ui compact button" {:compact true}))
@@ -81,26 +79,36 @@
       (button-class-should= "ui right floated button" {:floated :right}))
     (it "can be fluid"
       (button-class-should= "ui fluid button" {:fluid true}))
+    (it "adds an icon class"
+      (should= [:button {:class "ui icon button"}] (button {:icon true})))
+
+    ; TODO: Fix these tests once icon is implemented
+    ;(it "adds an icon by component"
+    ;  (let [dummy (fn [])]
+    ;    (should= [:button {:class "ui icon button"} dummy] (button {:icon dummy}))))
+    ;(it "adds an icon by string"
+    ;  (should= [:button {:class "ui icon button"} (icon {:name "settings"})] (button {:icon "settings"})))
+    ;(it "adds an icon child element by keyword"
+    ;  (should= [:button {:class "ui icon button"} (icon {:name "world"})] (button {:icon :world})))
+
     (it "can be inverted without a color"
       (button-class-should= "ui inverted button" {:inverted true}))
     (it "can be inverted with a color"
       (button-class-should= "ui red inverted button" {:inverted true :color :red}))
-    (it "displays a loading indicator"
-      (button-class-should= "ui loading button" {:loading true}))
+
+    ; TODO: Figure out how label works and implement it
+    ;(it "label"
+    ;   (should= [:button {:class "???"}] (button {:label "Something"}))
+
     (it "has label position: right"
       (button-class-should= "ui right labeled button" {:label-position :right}))
     (it "adds :tab-index 0 when given a label-position value"
       (let [[_ {:keys [tab-index]} _] (button {:label-position ""})]
         (should= 0 tab-index)))
-    (for [index [-1 0 1]]
-      (it (str "adds :tab-index " index " to element options")
-        (let [[_ {:keys [tab-index]} _] (button {:tab-index index})]
-          (should= index tab-index))))
-    (it "tab-index property overrides :label-position tab-index of zero"
-      (let [[_ {:keys [tab-index]} _] (button {:tab-index 3 :label-position :right})]
-        (should= 3 tab-index)))
     (it "has label position: left"
       (button-class-should= "ui left labeled button" {:label-position :left}))
+    (it "displays a loading indicator"
+      (button-class-should= "ui loading button" {:loading true}))
     (it "hints toward a negative consequence"
       (button-class-should= "ui negative button" {:negative true}))
     (it "applies an on-click function"
@@ -110,16 +118,23 @@
       (button-class-should= "ui positive button" {:positive true}))
     (it "can be formatted with a primary emphasis"
       (button-class-should= "ui primary button" {:primary true}))
-    (it "can be formatted with a secondary emphasis"
-      (button-class-should= "ui secondary button" {:secondary true}))
     (it "can be given a role"
       (let [[_ options] (button {:role "some-role"})]
         (should= {:class "ui button" :role "some-role"} options)))
+    (it "can be formatted with a secondary emphasis"
+      (button-class-should= "ui secondary button" {:secondary true}))
     (for [size [:mini :tiny :small :medium :large :big :huge :massive]]
       (it (str "can have a size of " size)
         (button-class-should=
           (str "ui " (subs (str size) 1) " button")
           {:size size})))
+    (for [index [-1 0 1]]
+      (it (str "adds :tab-index " index " to element options")
+        (let [[_ {:keys [tab-index]} _] (button {:tab-index index})]
+          (should= index tab-index))))
+    (it "tab-index property overrides :label-position tab-index of zero"
+      (let [[_ {:keys [tab-index]} _] (button {:tab-index 3 :label-position :right})]
+        (should= 3 tab-index)))
     (it "applies toggled off class"
       (let [[_ options] (button {:toggle true})]
         (should= {:class "ui toggle button" :aria-pressed false} options)))
@@ -129,4 +144,4 @@
     (for [type [:button :submit :reset]]
       (it (str "accepts an HTML button type of " type)
         (let [[_ options] (button {:type type})]
-          (should= {:class "ui button" :type (subs (str type) 1)} options))))))
+          (should= {:class "ui button" :type (name type)} options))))))
