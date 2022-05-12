@@ -36,7 +36,7 @@
       (should= {:class "ui text container"} (second (container {:text true}))))
     (for [alignment [:left :center :right]]
       (it (str "can be aligned " alignment)
-        (should= {:class (str "ui " (subs (str alignment) 1) " aligned container")}
+        (should= {:class (str "ui " (name alignment) " aligned container")}
                  (second (container {:text-align alignment})))))
     (it "can justify text content"
       (should= {:class "ui justified container"} (second (container {:text-align :justified}))))

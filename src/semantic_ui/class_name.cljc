@@ -9,11 +9,11 @@
 
 (defmethod class-name :button
   [_ {:keys [active animated attached
-           basic circular class-name
-           compact color disabled floated
-           fluid icon inverted label-position
-           loading negative positive
-           primary secondary size toggle]}]
+             basic circular class-name
+             compact color disabled floated
+             fluid icon inverted label-position
+             loading negative positive
+             primary secondary size toggle]}]
   (->class
     "ui"
     (case animated
@@ -72,8 +72,12 @@
     "container"
     class-name))
 
-(defmethod class-name :flag [_ {:keys [name class-name]}]
-  (->class name "flag" class-name))
+(defmethod class-name :flag [_ {:keys [class-name] :as options}]
+  (-> options
+      :name
+      name
+      (s/replace #"-" " ")
+      (->class "flag" class-name)))
 
 (defmethod class-name :divider [_ {:keys [class-name clearing fitted hidden horizontal inverted section vertical]}]
   (->class

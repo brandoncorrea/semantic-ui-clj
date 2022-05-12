@@ -33,6 +33,4 @@
   (it "can provide greater margins to divide sections of content"
     (class-should= "ui section divider" {:section true}))
   (it "can segment content vertically"
-    (class-should= "ui vertical divider" {:vertical true}))
-
-  )
+    (class-should= "ui vertical divider" {:vertical true})))
